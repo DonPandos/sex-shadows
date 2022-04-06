@@ -10,6 +10,7 @@ public class JumpButton : MonoBehaviour
     private GameObject character;
     private Rigidbody2D characterRB;
     private bool isJumping;
+    private Animator characterAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -17,10 +18,12 @@ public class JumpButton : MonoBehaviour
         character = GameObject.FindGameObjectWithTag("Character"); // mrDick
         characterRB = character.GetComponent<Rigidbody2D>();
         startY = characterRB.position.y;
+        characterAnimator = character.GetComponent<Animator>();
     }
 
-    private void OnMouseDown()
-    {
+    private void OnMouseDown() {
+        Debug.Log(isJumping.ToString());
+        characterAnimator.Play("Idle");
         if (!isJumping) {
             characterRB.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
             isJumping = true;
